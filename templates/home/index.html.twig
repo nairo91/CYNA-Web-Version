@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil | Cyna{% endblock %}
+
+{% block body %}
+
+<section class="hero">
+    <div class="d-flex align-items-start justify-content-between flex-wrap gap-3">
+        <div>
+            <h1 class="display-4 mb-2">CYNA</h1>
+            <p class="muted fs-5 mb-0">
+                Cyna protège votre SI avec des solutions simples, efficaces et pensées pour les équipes.
+            </p>
+        </div>
+
+        <a class="btn btn-primary rounded-pill px-4 py-2 align-self-center" href="#">
+            Découvrir
+        </a>
+    </div>
+</section>
+
+{# 2 grosses cartes (offres mises en avant) #}
+<section class="mt-4">
+    <div class="row g-3">
+        {% for item in highlights %}
+            <div class="col-12 col-lg-6">
+                <div class="card-cyna position-relative">
+                    <img class="w-100" style="height:240px; object-fit:cover;" src="{{ item.image }}" alt="{{ item.title }}">
+                    <span class="chip">{{ item.title }}</span>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+{# Catégories #}
+<section class="mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="h4 m-0">Catégories</h2>
+        <a class="muted" href="#">Voir tout</a>
+    </div>
+
+    <div class="row g-3">
+        {% for cat in categories %}
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card-cyna position-relative">
+                    <img class="card-img-top" src="{{ cat.image }}" alt="{{ cat.name }}">
+                    <div class="p-3">
+                        <div class="fw-bold">{{ cat.name }}</div>
+                        <div class="muted small">Solutions • Services</div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+{# Produits du moment #}
+<section class="mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="h4 m-0">Top produits du moment</h2>
+        <a class="muted" href="#">Tout voir</a>
+    </div>
+
+    <div class="row g-3">
+        {% for p in products %}
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card-cyna">
+                    <img class="card-img-top" src="{{ p.image }}" alt="{{ p.name }}">
+                    <div class="p-3">
+                        <div class="fw-bold">{{ p.name }}</div>
+                        <div class="muted small">{{ p.price }}</div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}
