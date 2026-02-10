@@ -88,6 +88,10 @@
         }
         footer a{ color: rgba(255,255,255,.70); text-decoration: none; }
         footer a:hover{ color: white; }
+
+        .navbar-toggler { border-color: rgba(255,255,255,.25); }
+        .navbar-toggler-icon { filter: invert(1); }
+
     </style>
 
     {% block stylesheets %}{% endblock %}
@@ -128,17 +132,25 @@
     {% block body %}{% endblock %}
 </main>
 
-<footer class="mt-5 py-4">
-    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
-        <div>© {{ "now"|date("Y") }} CYNA • Plateforme SaaS de cybersécurité</div>
-        <div class="d-flex gap-3">
-            <a href="#">Mentions légales</a>
-            <a href="#">CGU</a>
-            <a href="#contact">Contact</a>
-            <a href="#">Réseaux</a>
-        </div>
+<footer class="mt-5 py-5">
+  <div class="container">
+    <div class="row g-4 align-items-start">
+      <div class="col-md-6">
+        <div class="fw-bold text-white mb-1">CYNA</div>
+        <div class="text-white-50">Plateforme SaaS de cybersécurité</div>
+        <div class="text-white-50 small mt-2">© {{ "now"|date("Y") }} CYNA</div>
+      </div>
+
+      <div class="col-md-6 d-flex flex-column flex-md-row justify-content-md-end gap-3">
+        <a href="#">Mentions légales</a>
+        <a href="#">CGU</a>
+        <a href="#contact">Contact</a>
+        <a href="#" aria-label="Réseaux sociaux">Réseaux</a>
+      </div>
     </div>
+  </div>
 </footer>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 {% block javascripts %}{% endblock %}
