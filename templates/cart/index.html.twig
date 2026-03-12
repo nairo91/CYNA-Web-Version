@@ -1,0 +1,141 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Panier • CYNA{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .cart-item {
+            background: rgba(255,255,255,.03);
+            border: 1px solid rgba(255,255,255,.05);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.2s ease;
+        }
+        .cart-item:hover {
+            background: rgba(255,255,255,.06);
+            border-color: rgba(255,255,255,.1);
+        }
+        .qty-btn {
+            background: rgba(255,255,255,.1);
+            border: none;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: .2s;
+        }
+        .qty-btn:hover {
+            background: rgba(255,255,255,.2);
+        }
+        .summary-card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 2rem;
+            position: sticky;
+            top: 100px;
+        }
+        .remove-btn {
+            background: transparent;
+            border: none;
+            color: #ff4d4d;
+            opacity: 0.7;
+            transition: .2s;
+        }
+        .remove-btn:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="container py-4 py-md-5">
+    
+    <div class="mb-5">
+        <h1 class="display-6 fw-bold mb-2">Mon Panier</h1>
+        <div class="section-sub">Finalisez votre commande de solutions cybersécurité.</div>
+    </div>
+
+    <div class="row g-4 d-flex align-items-start">
+        <!-- Liste des articles -->
+        <div class="col-lg-8">
+            {% if cartItems|length > 0 %}
+                <div class="d-flex justify-content-between mb-3 px-2">
+                    <span class="text-white-50 fw-bold">{{ cartItems|length }} articles dans votre panier</span>
+                </div>
+                {% for item in cartItems %}
+                <div class="cart-item d-flex flex-column flex-sm-row justify-content-between align-items-sm-center">
+                    <div class="d-flex align-items-center gap-4 mb-3 mb-sm-0">
+                        <div class="glass d-flex align-items-center justify-content-center rounded-3" style="width: 64px; height: 64px; font-size: 1.5rem;">
+                            🛡️
+                        </div>
+                        <div>
+                            <div class="fw-bold text-white fs-5">{{ item.name }}</div>
+                            <div class="text-white-50 small pe-3">{{ item.description }}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex align-items-center gap-4">
+                        <div class="fw-bold text-white-50">{{ item.price }} €</div>
+                        <div class="d-flex align-items-center gap-2">
+                            <button class="qty-btn">-</button>
+                            <span class="fw-medium text-white" style="width:20px; text-align:center;">{{ item.quantity }}</span>
+                            <button class="qty-btn">+</button>
+                        </div>
+                        <div class="fw-bold fs-5 text-end text-white" style="min-width: 80px;">{{ item.price * item.quantity }} €</div>
+                        <button class="remove-btn ms-2 p-0" title="Supprimer">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="cyna-card p-5 text-center my-4">
+                    <div class="display-1 mb-3">🛒</div>
+                    <h3 class="fw-bold mb-3">Votre panier est vide</h3>
+                    <p class="text-white-50 mb-4">Découvrez nos solutions pour protéger votre infrastructure.</p>
+                    <a href="{{ path('app_home') }}" class="btn btn-accent rounded-pill px-4 py-2">Retour à l'accueil</a>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Résumé de la commande -->
+        <div class="col-lg-4">
+            <div class="summary-card">
+                <h3 class="h4 fw-bold mb-4">Résumé</h3>
+                
+                <div class="d-flex justify-content-between mb-3 text-white-50">
+                    <span>Sous-total HT</span>
+                    <span>{{ totalPrice|number_format(2, ',', ' ') }} €</span>
+                </div>
+                <div class="d-flex justify-content-between mb-3 text-white-50">
+                    <span>TVA (20%)</span>
+                    <span>{{ tax|number_format(2, ',', ' ') }} €</span>
+                </div>
+                
+                <hr class="border-secondary my-4" style="opacity: 0.2;">
+                
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <span class="fw-bold text-white">Total TTC</span>
+                    <span class="fw-bold fs-3 text-white" style="color: var(--accent2) !important;">{{ finalPrice|number_format(2, ',', ' ') }} €</span>
+                    <div class="text-white-50 small mt-n1 w-100 text-end d-none">par mois</div>
+                </div>
+                
+                <div class="text-white-50 small text-end mb-4 w-100" style="margin-top: -20px;">/ mois</div>
+
+                <button class="btn btn-accent rounded-pill w-100 py-3 fw-bold mb-3 shadow-sm" style="font-size: 1.1rem;">Valider la commande</button>
+                <div class="text-center text-white-50 small mt-3 d-flex align-items-center justify-content-center gap-2">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    Paiement sécurisé par CB ou SEPA
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
