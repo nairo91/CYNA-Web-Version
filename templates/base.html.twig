@@ -159,11 +159,11 @@
                 </form>
 
                 <ul class="navbar-nav ms-lg-auto align-items-lg-center gap-lg-3">
-                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#tarifs">Tarifs</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ path('app_home') }}#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ path('app_home') }}#tarifs">Tarifs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ path('app_home') }}#contact">Contact</a></li>
                     <li class="nav-item ms-lg-2">
-                        <a class="btn btn-sm btn-outline-light rounded-pill px-3" href="#contact">Panier</a>
+                        <a class="btn btn-sm btn-outline-light rounded-pill px-3" href="{{ path('app_cart') }}">Panier</a>
                     </li>
                 </ul>
             </div>
