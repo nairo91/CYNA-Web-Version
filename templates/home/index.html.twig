@@ -85,20 +85,14 @@
             <a href="#services" class="text-white-50">Voir les services</a>
         </div>
 
-        <div id="homeCarousel" class="carousel slide cyna-card overflow-hidden" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="0" class="active"></button>
-                <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="1"></button>
-                <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="2"></button>
-            </div>
-
-            <div class="carousel-inner">
+        <div class="swiper-container mySwiper overflow-hidden position-relative">
+            <div class="swiper-wrapper">
                 {# Slide 1 #}
-                <div class="carousel-item active">
-                    <div class="p-4 p-md-5" style="min-height: 320px; background:
+                <div class="swiper-slide cyna-card">
+                    <div class="p-4 p-md-5" style="min-height: 350px; background:
                         radial-gradient(700px 300px at 20% 10%, rgba(47,123,255,.25), transparent 60%),
                         linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));">
-                        <div class="row align-items-center g-4 px-4 px-md-5 mx-lg-4">
+                        <div class="row align-items-center g-4">
                             <div class="col-md-7">
                                 <div class="text-white-50 small mb-2">Offre SOC</div>
                                 <h3 class="fw-bold mb-2">Surveillance & réponse 24/7</h3>
@@ -119,11 +113,11 @@
                 </div>
 
                 {# Slide 2 #}
-                <div class="carousel-item">
-                    <div class="p-4 p-md-5" style="min-height: 320px; background:
+                <div class="swiper-slide cyna-card">
+                    <div class="p-4 p-md-5" style="min-height: 350px; background:
                         radial-gradient(700px 300px at 80% 20%, rgba(91,192,255,.20), transparent 60%),
                         linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));">
-                        <div class="row align-items-center g-4 px-4 px-md-5 mx-lg-4">
+                        <div class="row align-items-center g-4">
                             <div class="col-md-7">
                                 <div class="text-white-50 small mb-2">EDR Pro</div>
                                 <h3 class="fw-bold mb-2">Détection endpoint & remédiation</h3>
@@ -143,11 +137,84 @@
                 </div>
 
                 {# Slide 3 #}
-                <div class="carousel-item">
-                    <div class="p-4 p-md-5" style="min-height: 320px; background:
+                <div class="swiper-slide cyna-card">
+                    <div class="p-4 p-md-5" style="min-height: 350px; background:
                         radial-gradient(700px 300px at 30% 70%, rgba(138,91,255,.18), transparent 60%),
                         linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));">
-                        <div class="row align-items-center g-4 px-4 px-md-5 mx-lg-4">
+                        <div class="row align-items-center g-4">
+                            <div class="col-md-7">
+                                <div class="text-white-50 small mb-2">XDR Suite</div>
+                                <h3 class="fw-bold mb-2">Vision globale & corrélation avancée</h3>
+                                <p class="section-sub mb-4">
+                                    Corrélation multi-sources, priorisation, dashboards.
+                                </p>
+                                <a class="btn btn-accent rounded-pill px-4" href="#contact">Demander une démo</a>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="glass rounded-4 p-4">
+                                    <div class="fw-semibold mb-1">Pour</div>
+                                    <div class="text-white-50 small">Équipes IT & SecOps</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {# Slide 4 (Copie Slide 1) #}
+                <div class="swiper-slide cyna-card">
+                    <div class="p-4 p-md-5" style="min-height: 350px; background:
+                        radial-gradient(700px 300px at 20% 10%, rgba(47,123,255,.25), transparent 60%),
+                        linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));">
+                        <div class="row align-items-center g-4">
+                            <div class="col-md-7">
+                                <div class="text-white-50 small mb-2">Offre SOC</div>
+                                <h3 class="fw-bold mb-2">Surveillance & réponse 24/7</h3>
+                                <p class="section-sub mb-4">
+                                    Détection, qualification et traitement des alertes.
+                                    Une équipe SOC prête à intervenir.
+                                </p>
+                                <a class="btn btn-accent rounded-pill px-4" href="#services">Découvrir</a>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="glass rounded-4 p-4">
+                                    <div class="fw-semibold mb-1">Inclus</div>
+                                    <div class="text-white-50 small">Playbooks • Rapports • Alerting</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {# Slide 5 (Copie Slide 2) #}
+                <div class="swiper-slide cyna-card">
+                    <div class="p-4 p-md-5" style="min-height: 350px; background:
+                        radial-gradient(700px 300px at 80% 20%, rgba(91,192,255,.20), transparent 60%),
+                        linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));">
+                        <div class="row align-items-center g-4">
+                            <div class="col-md-7">
+                                <div class="text-white-50 small mb-2">EDR Pro</div>
+                                <h3 class="fw-bold mb-2">Détection endpoint & remédiation</h3>
+                                <p class="section-sub mb-4">
+                                    Analyse comportementale, isolation machine, actions guidées.
+                                </p>
+                                <a class="btn btn-outline-light rounded-pill px-4" href="#tarifs">Voir tarifs</a>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="glass rounded-4 p-4">
+                                    <div class="fw-semibold mb-1">Bénéfice</div>
+                                    <div class="text-white-50 small">Réduire le temps de réponse</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {# Slide 6 (Copie Slide 3) #}
+                <div class="swiper-slide cyna-card">
+                    <div class="p-4 p-md-5" style="min-height: 350px; background:
+                        radial-gradient(700px 300px at 30% 70%, rgba(138,91,255,.18), transparent 60%),
+                        linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));">
+                        <div class="row align-items-center g-4">
                             <div class="col-md-7">
                                 <div class="text-white-50 small mb-2">XDR Suite</div>
                                 <h3 class="fw-bold mb-2">Vision globale & corrélation avancée</h3>
@@ -167,14 +234,9 @@
                 </div>
             </div>
 
-            <button class="carousel-control-prev" type="button" data-bs-target="#homeCarousel" data-bs-slide="prev" style="width: 5%;">
-                <span class="carousel-control-prev-icon"></span>
-                <span class="visually-hidden">Précédent</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#homeCarousel" data-bs-slide="next" style="width: 5%;">
-                <span class="carousel-control-next-icon"></span>
-                <span class="visually-hidden">Suivant</span>
-            </button>
+            <div class="swiper-pagination mt-4 position-relative bottom-0"></div>
+            <div class="swiper-button-prev d-none d-md-flex" style="left: 20px;"></div>
+            <div class="swiper-button-next d-none d-md-flex" style="right: 20px;"></div>
         </div>
     </section>
 
