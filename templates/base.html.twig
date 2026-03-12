@@ -94,7 +94,50 @@
 
     </style>
 
-    {% block stylesheets %}{% endblock %}
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+        <style>
+            .swiper-container {
+                width: 100%;
+                padding-top: 50px;
+                padding-bottom: 50px;
+                overflow: hidden;
+            }
+            .swiper-slide {
+                background-position: center;
+                background-size: cover;
+                background-color: var(--bg0); /* Fond opaque noir/bleu foncé pour cacher le texte derrière */
+                width: 55%; 
+                max-width: 800px;
+                border-radius: 18px;
+                opacity: 0.6; /* Assombrit les côtés sans faire de filtre bizarre */
+                transition: all 0.4s ease;
+                /* Optional glow effect for modern aesthetics */
+                box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 20px rgba(47,123,255,0.2);
+            }
+            .swiper-slide-active {
+                opacity: 1; /* Le centre redevient bien éclairé */
+                background-color: var(--bg1); /* Légèrement plus clair que le fond pour détacher la carte active */
+                box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 40px rgba(47,123,255,0.4);
+            }
+            .swiper-pagination-bullet {
+                background: rgba(255,255,255,0.5);
+            }
+            .swiper-pagination-bullet-active {
+                background: var(--accent);
+            }
+            .swiper-button-next, .swiper-button-prev {
+                color: var(--accent2);
+                background: rgba(0,0,0,0.3);
+                width: 50px; height: 50px;
+                border-radius: 50%;
+                backdrop-filter: blur(5px);
+            }
+            .swiper-button-next::after, .swiper-button-prev::after {
+                font-size: 20px;
+            }
+        </style>
+    {% endblock %}
 </head>
 
 <body>
@@ -116,11 +159,11 @@
                 </form>
 
                 <ul class="navbar-nav ms-lg-auto align-items-lg-center gap-lg-3">
-                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#tarifs">Tarifs</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ path('app_home') }}#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ path('app_home') }}#tarifs">Tarifs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ path('app_home') }}#contact">Contact</a></li>
                     <li class="nav-item ms-lg-2">
-                        <a class="btn btn-sm btn-outline-light rounded-pill px-3" href="#contact">Panier</a>
+                        <a class="btn btn-sm btn-outline-light rounded-pill px-3" href="{{ path('app_cart') }}">Panier</a>
                     </li>
                 </ul>
             </div>
@@ -153,6 +196,57 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-{% block javascripts %}{% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var swiper = new Swiper('.mySwiper', {
+                effect: 'coverflow',
+                grabCursor: true,
+                centeredSlides: true,
+                slidesPerView: 'auto',
+                loop: true,
+                loopedSlides: 3, /* Force Duplication pour n'avoir aucun vide lors du défilement */
+                coverflowEffect: {
+                    rotate: 0, /* Pas de rotation sur les côtés pour qu'ils prennent moins de largeur */
+                    stretch: 120, /* Rapproche fortement les cartes sur les côtés du centre */
+                    depth: 150, /* Réduit l'effet de recul pour s'assurer de les garder dans l'écran */
+                    modifier: 1, /* Facteur d'application des effets (1 = normal) */
+                    slideShadows: true, /* Active les vraies ombres directionnelles 3D de Swiper */
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                    type: 'custom',
+                    renderCustom: function (swiper, current, total) {
+                        var html = '';
+                        // current va de 1 à 6 (puisqu'on a 6 slides). On le ramène à 0, 1 ou 2.
+                        var activeIndex = (current - 1) % 3;
+                        for (var i = 0; i < 3; i++) {
+                            var activeClass = i === activeIndex ? ' swiper-pagination-bullet-active' : '';
+                            html += '<span class="swiper-pagination-bullet' + activeClass + ' custom-bullet" data-index="' + i + '" style="cursor:pointer; margin: 0 5px; display:inline-block;"></span>';
+                        }
+                        return html;
+                    }
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                autoplay: {
+                    delay: 4000,
+                    disableOnInteraction: false,
+                }
+            });
+
+            // Permet de cliquer sur les 3 points virtuels pour naviguer
+            document.querySelector('.swiper-pagination').addEventListener('click', function(e) {
+                if (e.target.classList.contains('custom-bullet')) {
+                    var index = parseInt(e.target.getAttribute('data-index'));
+                    swiper.slideToLoop(index);
+                }
+            });
+        });
+    </script>
+    {% block javascripts %}{% endblock %}
 </body>
 </html>
