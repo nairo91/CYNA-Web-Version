@@ -24,3 +24,7 @@
 /configure_php.ps1
 /config/reference.php
 /composeur-setup.php
+
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###
