@@ -13,7 +13,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *
  * This is for apps only. Bundles SHOULD NOT use it.
  *
- * Example:  
+ * Example:
  *
  *     ```php
  *     // config/services.php

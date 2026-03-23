@@ -120,6 +120,14 @@
                 background-color: var(--bg1); /* Légèrement plus clair que le fond pour détacher la carte active */
                 box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 40px rgba(47,123,255,0.4);
             }
+            
+            /* Empêche les slides de devenir transparentes au survol à cause de .cyna-card:hover */
+            .swiper-slide.cyna-card:hover {
+                background-color: var(--bg0);
+            }
+            .swiper-slide-active.cyna-card:hover {
+                background-color: var(--bg1);
+            }
             .swiper-pagination-bullet {
                 background: rgba(255,255,255,0.5);
             }
