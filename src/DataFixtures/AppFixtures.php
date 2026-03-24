@@ -4,13 +4,28 @@ namespace App\DataFixtures;
 
 use App\Entity\Category;
 use App\Entity\Product;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+    public function __construct(
+        private readonly UserPasswordHasherInterface $passwordHasher,
+    ) {
+    }
+
     public function load(ObjectManager $manager): void
     {
+        $user = new User();
+        $user->setEmail('demo@cyna.local');
+        $user->setFullName('Demo User');
+        $user->setRoles(['ROLE_USER']);
+        $user->setVerified(true);
+        $user->setPassword($this->passwordHasher->hashPassword($user, 'CynaDemo123!'));
+        $manager->persist($user);
+
         // ── Catégories ──────────────────────────────────────────────────────────
         $categoriesData = [
             ['name' => 'SOC',   'slug' => 'soc',   'image' => 'https://picsum.photos/seed/cat-soc/800/500',   'description' => 'Security Operations Center - surveillance continue 24/7.'],
