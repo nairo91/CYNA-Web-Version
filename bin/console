@@ -1,6 +1,9 @@
 #!/usr/bin/env php
 <?php
 
+unset($_SERVER['APP_CACHE_DIR'], $_ENV['APP_CACHE_DIR']);
+unset($_SERVER['APP_LOG_DIR'], $_ENV['APP_LOG_DIR']);
+
 use App\Kernel;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 
