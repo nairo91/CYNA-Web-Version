@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use App\Enum\SubscriptionDuration;
-use App\Enum\SubscriptionStatus;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
@@ -14,7 +12,7 @@ class OrderSubscription
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: UserOrder::class)]
+    #[ORM\ManyToOne(targetEntity: UserOrder::class, inversedBy: 'subscriptions')]
     #[ORM\JoinColumn(nullable: false)]
     private ?UserOrder $userOrder = null;
 
@@ -22,17 +20,17 @@ class OrderSubscription
     #[ORM\JoinColumn(nullable: false)]
     private ?SaasProduct $saasProduct = null;
 
-    #[ORM\Column(length: 50, enumType: SubscriptionDuration::class)]
-    private ?SubscriptionDuration $duration = null;
+    #[ORM\Column(length: 50)]
+    private ?string $duration = null;
 
     #[ORM\Column]
     private ?int $quantity = 1;
 
-    #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
-    private ?string $unitPrice = null;
+    #[ORM\Column]
+    private ?int $unitPrice = null;
 
-    #[ORM\Column(length: 50, enumType: SubscriptionStatus::class)]
-    private ?SubscriptionStatus $status = null;
+    #[ORM\Column(length: 50)]
+    private ?string $status = null;
 
     public function getId(): ?int
     {
@@ -63,12 +61,12 @@ class OrderSubscription
         return $this;
     }
 
-    public function getDuration(): ?SubscriptionDuration
+    public function getDuration(): ?string
     {
         return $this->duration;
     }
 
-    public function setDuration(SubscriptionDuration $duration): static
+    public function setDuration(string $duration): static
     {
         $this->duration = $duration;
 
@@ -87,24 +85,24 @@ class OrderSubscription
         return $this;
     }
 
-    public function getUnitPrice(): ?string
+    public function getUnitPrice(): ?int
     {
         return $this->unitPrice;
     }
 
-    public function setUnitPrice(string $unitPrice): static
+    public function setUnitPrice(int $unitPrice): static
     {
         $this->unitPrice = $unitPrice;
 
         return $this;
     }
 
-    public function getStatus(): ?SubscriptionStatus
+    public function getStatus(): ?string
     {
         return $this->status;
     }
 
-    public function setStatus(SubscriptionStatus $status): static
+    public function setStatus(string $status): static
     {
         $this->status = $status;
 

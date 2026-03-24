@@ -6,6 +6,8 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
@@ -37,6 +39,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private bool $isVerified = false;
+
+    #[ORM\OneToMany(targetEntity: UserAddress::class, mappedBy: 'user')]
+    private Collection $addresses;
+
+    #[ORM\OneToMany(targetEntity: PaymentToken::class, mappedBy: 'user')]
+    private Collection $paymentTokens;
+
+    #[ORM\OneToMany(targetEntity: UserOrder::class, mappedBy: 'user')]
+    private Collection $orders;
+
+    public function __construct()
+    {
+        $this->addresses = new ArrayCollection();
+        $this->paymentTokens = new ArrayCollection();
+        $this->orders = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -124,6 +142,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->isVerified = $isVerified;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, UserAddress>
+     */
+    public function getAddresses(): Collection
+    {
+        return $this->addresses;
+    }
+
+    /**
+     * @return Collection<int, PaymentToken>
+     */
+    public function getPaymentTokens(): Collection
+    {
+        return $this->paymentTokens;
+    }
+
+    /**
+     * @return Collection<int, UserOrder>
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
     }
 
     /**

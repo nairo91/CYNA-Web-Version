@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Enum\OrderStatus;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity]
 class UserOrder
@@ -13,7 +14,7 @@ class UserOrder
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'orders')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
@@ -21,11 +22,11 @@ class UserOrder
     #[ORM\JoinColumn(nullable: false)]
     private ?UserAddress $billingAddress = null;
 
-    #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
-    private ?string $totalAmount = null;
+    #[ORM\Column]
+    private ?int $totalAmount = null;
 
-    #[ORM\Column(length: 50, enumType: OrderStatus::class)]
-    private ?OrderStatus $status = null;
+    #[ORM\Column(length: 50)]
+    private ?string $status = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $invoicePdfUrl = null;
@@ -33,9 +34,13 @@ class UserOrder
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[ORM\OneToMany(targetEntity: OrderSubscription::class, mappedBy: 'userOrder')]
+    private Collection $subscriptions;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
+        $this->subscriptions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -67,24 +72,24 @@ class UserOrder
         return $this;
     }
 
-    public function getTotalAmount(): ?string
+    public function getTotalAmount(): ?int
     {
         return $this->totalAmount;
     }
 
-    public function setTotalAmount(string $totalAmount): static
+    public function setTotalAmount(int $totalAmount): static
     {
         $this->totalAmount = $totalAmount;
 
         return $this;
     }
 
-    public function getStatus(): ?OrderStatus
+    public function getStatus(): ?string
     {
         return $this->status;
     }
 
-    public function setStatus(OrderStatus $status): static
+    public function setStatus(string $status): static
     {
         $this->status = $status;
 
@@ -113,5 +118,13 @@ class UserOrder
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, OrderSubscription>
+     */
+    public function getSubscriptions(): Collection
+    {
+        return $this->subscriptions;
     }
 }

@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use App\Enum\PricingModel;
-use App\Enum\ProductStatus;
 use App\Entity\Traits\SoftDeleteTrait;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -17,7 +15,7 @@ class SaasProduct
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: Category::class)]
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'saasProducts')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
@@ -30,14 +28,14 @@ class SaasProduct
     #[ORM\Column(type: 'json')]
     private array $technicalCharacteristics = [];
 
-    #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
-    private ?string $basePrice = null;
+    #[ORM\Column]
+    private ?int $basePrice = null;
 
-    #[ORM\Column(length: 50, enumType: PricingModel::class)]
-    private ?PricingModel $pricingModel = null;
+    #[ORM\Column(length: 50)]
+    private ?string $pricingModel = null;
 
-    #[ORM\Column(length: 50, enumType: ProductStatus::class)]
-    private ?ProductStatus $status = null;
+    #[ORM\Column(length: 50)]
+    private ?string $status = null;
 
     #[ORM\Column]
     private ?int $priority = 0;
@@ -95,36 +93,36 @@ class SaasProduct
         return $this;
     }
 
-    public function getBasePrice(): ?string
+    public function getBasePrice(): ?int
     {
         return $this->basePrice;
     }
 
-    public function setBasePrice(string $basePrice): static
+    public function setBasePrice(int $basePrice): static
     {
         $this->basePrice = $basePrice;
 
         return $this;
     }
 
-    public function getPricingModel(): ?PricingModel
+    public function getPricingModel(): ?string
     {
         return $this->pricingModel;
     }
 
-    public function setPricingModel(PricingModel $pricingModel): static
+    public function setPricingModel(string $pricingModel): static
     {
         $this->pricingModel = $pricingModel;
 
         return $this;
     }
 
-    public function getStatus(): ?ProductStatus
+    public function getStatus(): ?string
     {
         return $this->status;
     }
 
-    public function setStatus(ProductStatus $status): static
+    public function setStatus(string $status): static
     {
         $this->status = $status;
 

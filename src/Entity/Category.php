@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity]
 class Category
@@ -20,6 +22,14 @@ class Category
 
     #[ORM\Column]
     private ?int $priority = 0;
+
+    #[ORM\OneToMany(targetEntity: SaasProduct::class, mappedBy: 'category')]
+    private Collection $saasProducts;
+
+    public function __construct()
+    {
+        $this->saasProducts = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -60,5 +70,13 @@ class Category
         $this->priority = $priority;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, SaasProduct>
+     */
+    public function getSaasProducts(): Collection
+    {
+        return $this->saasProducts;
     }
 }
