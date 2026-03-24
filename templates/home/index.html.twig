@@ -6,6 +6,73 @@
 <div class="container py-4 py-md-5">
 
     {# ======================
+       HERO (tu l'avais déjà, on le garde)
+       ====================== #}
+    <section class="py-3 py-md-4">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-7">
+                <h1 class="display-4 fw-bold mb-3">
+                    Protégez votre entreprise avec <span style="color: rgba(91,192,255,.95)">CYNA</span>
+                </h1>
+                <p class="lead section-sub mb-4">
+                    Solutions SaaS de cybersécurité : SOC, EDR, XDR et supervision avancée.
+                    Une approche simple, efficace, pensée pour les équipes.
+                </p>
+
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="#products" class="btn btn-accent btn-lg rounded-pill px-4">Découvrir nos produits</a>
+                    <a href="#categories" class="btn btn-outline-light btn-lg rounded-pill px-4">Voir les catégories</a>
+                </div>
+
+                <div class="d-flex flex-wrap gap-3 mt-4 text-white">
+                    <div class="glass px-3 py-2 rounded-pill">✅ Déploiement rapide</div>
+                    <div class="glass px-3 py-2 rounded-pill">✅ Supervision 24/7</div>
+                    <div class="glass px-3 py-2 rounded-pill">✅ Rapports & alertes</div>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="cyna-card p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="fw-bold">Aperçu sécurité</div>
+                        <span class="badge text-bg-success">OK</span>
+                    </div>
+
+                    <div class="d-flex flex-column gap-3">
+                        <div class="glass rounded-4 p-3">
+                            <div class="d-flex justify-content-between">
+                                <div class="fw-semibold">Endpoints protégés</div>
+                                <div class="text-white-50">128</div>
+                            </div>
+                            <div class="progress mt-2" role="progressbar">
+                                <div class="progress-bar" style="width: 78%"></div>
+                            </div>
+                        </div>
+
+                        <div class="glass rounded-4 p-3">
+                            <div class="d-flex justify-content-between">
+                                <div class="fw-semibold">Alertes traitées</div>
+                                <div class="text-white-50">24h</div>
+                            </div>
+                            <div class="mt-2 text-white-50 small">
+                                12 alertes • 0 critique • 2 à investiguer
+                            </div>
+                        </div>
+
+                        <div class="glass rounded-4 p-3">
+                            <div class="fw-semibold mb-1">Recommandation</div>
+                            <div class="text-white-50 small">
+                                Activer l’authentification MFA sur tous les comptes administrateurs.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-white-50 small mt-2">* Données fictives pour la maquette (Jour 1).</div>
+            </div>
+        </div>
+    </section>
+
+    {# ======================
        1) CARROUSEL (3 slides)
        ====================== #}
     <section class="pt-4">
@@ -204,7 +271,11 @@
                     <a href="#" class="text-decoration-none">
                         <div class="cyna-card p-3 h-100 d-flex flex-column align-items-center justify-content-center text-center">
                             {% if category.image is defined and category.image %}
-                                <img src="{{ asset('uploads/categories/' ~ category.image) }}" alt="{{ category.name }}" class="img-fluid rounded-3 mb-2" style="max-height: 80px; object-fit: cover;">
+                                {% if category.image starts with 'http' %}
+                                    <img src="{{ category.image }}" alt="{{ category.name }}" class="img-fluid rounded-3 mb-2" style="max-height: 80px; object-fit: cover;">
+                                {% else %}
+                                    <img src="{{ asset('uploads/categories/' ~ category.image) }}" alt="{{ category.name }}" class="img-fluid rounded-3 mb-2" style="max-height: 80px; object-fit: cover;">
+                                {% endif %}
                             {% else %}
                                 <div class="glass rounded-3 px-3 py-2 mb-2 d-flex align-items-center justify-content-center" style="font-size: 2rem;">📁</div>
                             {% endif %}
@@ -236,7 +307,11 @@
                     <a href="#" class="text-decoration-none">
                         <div class="cyna-card p-3 h-100 d-flex flex-column">
                             {% if product.image is defined and product.image %}
-                                <img src="{{ asset('uploads/products/' ~ product.image) }}" alt="{{ product.name }}" class="img-fluid rounded-3 mb-3 border border-secondary border-opacity-25" style="height: 180px; object-fit: cover; width: 100%;">
+                                {% if product.image starts with 'http' %}
+                                    <img src="{{ product.image }}" alt="{{ product.name }}" class="img-fluid rounded-3 mb-3 border border-secondary border-opacity-25" style="height: 180px; object-fit: cover; width: 100%;">
+                                {% else %}
+                                    <img src="{{ asset('uploads/products/' ~ product.image) }}" alt="{{ product.name }}" class="img-fluid rounded-3 mb-3 border border-secondary border-opacity-25" style="height: 180px; object-fit: cover; width: 100%;">
+                                {% endif %}
                             {% else %}
                                 <div class="glass rounded-3 mb-3 d-flex align-items-center justify-content-center border border-secondary border-opacity-25" style="height: 180px; width: 100%; font-size: 3rem;">📦</div>
                             {% endif %}
